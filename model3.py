@@ -18,7 +18,7 @@ import pandas as pd
 from sklearn import  metrics
 
 
-def model1(X_train, X_test, X_valid, y_train, y_test, y_valid):
+def model3(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     y_train = np.array(y_train)
     y_test = np.array(y_test)
@@ -29,9 +29,17 @@ def model1(X_train, X_test, X_valid, y_train, y_test, y_valid):
     tf.random.set_seed(42)
 
     model = keras.models.Sequential([
-        keras.layers.Flatten(input_shape=(128, 128, 3)),
+        keras.layers.Conv2D(filters=64, kernel_size=(3,3),padding="Same",activation="relu" , input_shape = (128,128,3)),
+        keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2)),
+        keras.layers.BatchNormalization(),
+        keras.layers.Dropout(0.3),
+        keras.layers.Flatten(),
         keras.layers.Dense(1024, activation="relu"),
+        keras.layers.Dropout(0.2),
+        keras.layers.BatchNormalization(),
         keras.layers.Dense(512, activation="relu"),
+        keras.layers.Dropout(0.5),
+        keras.layers.BatchNormalization(),
         keras.layers.Dense(5, activation="softmax")
     ])
 
@@ -59,4 +67,4 @@ def model1(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
-model1(X_train, X_test, X_valid, y_train, y_test, y_valid)
+model3(X_train, X_test, X_valid, y_train, y_test, y_valid)

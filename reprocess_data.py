@@ -4,9 +4,8 @@ import matplotlib.pyplot as plt
 import random as rn
 
 
-X, labels = read_data()
-
 def reprocess_data():
+    X, labels = read_data()
 
     label_dict = {'daisy': 0, 'dandelion': 1, 'rose': 2, 'sunflower': 3, 'tulip': 4}
 
