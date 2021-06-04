@@ -37,8 +37,9 @@ def model1(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     model.summary()
 
+    adam = keras.optimizers.Adam(learning_rate = 0.001, beta_1=0.9, beta_2 = 0.999, amsgrad = False)
     model.compile(loss="sparse_categorical_crossentropy",
-                  optimizer="sgd",
+                  optimizer=adam,
                   metrics=["accuracy"])
 
 
