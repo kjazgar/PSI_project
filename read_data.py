@@ -98,16 +98,16 @@ def read_data():
 
     X = np.array(X)
 
-    fig, ax = plt.subplots(5, 2)
-    fig.set_size_inches(15, 15)
-    for i in range(5):
-        for j in range(2):
-            l = rn.randint(0, len(y))
-            ax[i, j].imshow(X[l])
-            ax[i, j].set_title('Flower: ' + y[l])
-
-    plt.tight_layout()
-    plt.show()
+    # fig, ax = plt.subplots(5, 2)
+    # fig.set_size_inches(15, 15)
+    # for i in range(5):
+    #     for j in range(2):
+    #         l = rn.randint(0, len(y))
+    #         ax[i, j].imshow(X[l])
+    #         ax[i, j].set_title('Flower: ' + y[l])
+    #
+    # plt.tight_layout()
+    # plt.show()
 
     return X, y
 
