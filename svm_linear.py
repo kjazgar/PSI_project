@@ -11,7 +11,7 @@ from sklearn import metrics
 from sklearn.svm import SVC
 
 
-def svm(X_train, X_test, X_valid, y_train, y_test, y_valid):
+def svm_linear(X_train, X_test, X_valid, y_train, y_test, y_valid):
     X_train = np.array(X_train)
     X_test = np.array(X_test)
     y_train = np.array(y_train)
@@ -23,7 +23,7 @@ def svm(X_train, X_test, X_valid, y_train, y_test, y_valid):
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
     param_grid = {
-        'C': [0.001, 0.01, 0.1]
+        'C': [0.001]
     }
 
     grid = GridSearchCV(SVC(kernel='linear'), param_grid, cv=kfold, error_score='raise')
@@ -42,5 +42,5 @@ def svm(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
-svm(X_train, X_test, X_valid, y_train, y_test, y_valid)
+svm_linear(X_train, X_test, X_valid, y_train, y_test, y_valid)
 #0.4560862865947612

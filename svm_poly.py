@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn import metrics
-from sklearn import linear_model
+from sklearn.svm import SVC
 
 
-def logistic(X_train, X_test, X_valid, y_train, y_test, y_valid):
+def svm_poly(X_train, X_test, X_valid, y_train, y_test, y_valid):
     X_train = np.array(X_train)
     X_test = np.array(X_test)
     y_train = np.array(y_train)
@@ -22,12 +22,11 @@ def logistic(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
-
     param_grid = {
         'C': [0.001, 0.01]
     }
 
-    grid = GridSearchCV(linear_model.LogisticRegression(), param_grid, cv=kfold, error_score='raise')
+    grid = GridSearchCV(SVC(kernel='poly'), param_grid, cv=kfold, error_score='raise')
 
     grid.fit(X_train, y_train)
     print(grid.best_params_)
@@ -40,6 +39,8 @@ def logistic(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     return grid.best_estimator_
 
+
+
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
-logistic(X_train, X_test, X_valid, y_train, y_test, y_valid)
-#0.43605546995377503
+svm_poly(X_train, X_test, X_valid, y_train, y_test, y_valid)
+#0.43143297380585516
