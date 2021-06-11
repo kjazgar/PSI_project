@@ -79,7 +79,9 @@ def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     model.summary()  # print summary my model
 
-    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])  # compile model
+    adam = tf.keras.optimizers.Adam(lr=0.01)
+
+    model.compile(loss='sparse_categorical_crossentropy', optimizer=adam, metrics=['accuracy'])  # compile model
 
     history = model.fit(X_train, y_train, epochs=30,
                         validation_data=(X_valid, y_valid))
@@ -99,3 +101,4 @@ def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
 model10(X_train, X_test, X_valid, y_train, y_test, y_valid)
 #0.6533127889060092
+# 0.6856702619414484 - 0.01
