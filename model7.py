@@ -1,40 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@kjazgar
-kjazgar /
-PSI_project
-Private
-
-1
-0
-
-    0
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-
-    Settings
-
-Merge remote-tracking branch 'origin/master'
-
-    master
-
-@kjazgar
-kjazgar committed 1 minute ago
-2 parents a459cf8 + 1e0e74f commit 6e768df700f192858756be0015c81615e711c3cb
-Showing
-with 0 additions and 273 deletions.
-78 model7.py
-@@ -1,78 +0,0 @@
 from keras.layers import MaxPool2D
 
 from reprocess_data import reprocess_data
@@ -57,7 +20,6 @@ import pandas as pd
 from sklearn import  metrics
 from tensorflow.python.keras.layers.convolutional import Conv2D, MaxPooling2D, AveragePooling2D
 from tensorflow.keras.layers import Flatten
-
 
 def model7(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
