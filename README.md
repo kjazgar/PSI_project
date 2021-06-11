@@ -6,7 +6,7 @@ Artificial Intelligence project that aim was to classification images of flowers
 ### Dataset
 The data collection is dowloaded from https://www.kaggle.com/alxmamaev/flowers-recognition, contains 4242 images of flowers and is based on the data flicr, google images, yandex images. The pictures are divided into five classes: daisy, dandelion, rose, sunflower and tuilp and there about 800 photos for each class.
 ### Overview
-`read_data.py` script that allows to read the data and print some random images. 
+`read_data.py` script that allows to read the data and prints some random images. 
 
 `reprocess_data.py` script that allows to reprocess the data and split it into train, test and validation sets. 
 
@@ -68,6 +68,66 @@ _________________________________________________________________
 dropout_5 (Dropout)          (None, 1024)              0         
 _________________________________________________________________
 batch_normalization_5 (Batch (None, 1024)              4096      
+=================================================================
+```
+`model9.py` file contains function that creates neural network model with following structure:
+
+```
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 128, 128, 64)      1792      
+_________________________________________________________________
+module_wrapper (ModuleWrappe (None, 64, 64, 64)        0         
+_________________________________________________________________
+batch_normalization (BatchNo (None, 64, 64, 64)        256       
+_________________________________________________________________
+dropout (Dropout)            (None, 64, 64, 64)        0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 64, 64, 128)       73856     
+_________________________________________________________________
+module_wrapper_1 (ModuleWrap (None, 32, 32, 128)       0         
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 32, 32, 128)       512       
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 32, 32, 128)       0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 32, 32, 128)       147584    
+_________________________________________________________________
+module_wrapper_2 (ModuleWrap (None, 16, 16, 128)       0         
+_________________________________________________________________
+batch_normalization_2 (Batch (None, 16, 16, 128)       512       
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 16, 16, 128)       0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 16, 16, 512)       590336    
+_________________________________________________________________
+module_wrapper_3 (ModuleWrap (None, 8, 8, 512)         0         
+_________________________________________________________________
+batch_normalization_3 (Batch (None, 8, 8, 512)         2048      
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 8, 8, 512)         0         
+_________________________________________________________________
+flatten (Flatten)            (None, 32768)             0         
+_________________________________________________________________
+dense (Dense)                (None, 1024)              33555456  
+_________________________________________________________________
+dropout_4 (Dropout)          (None, 1024)              0         
+_________________________________________________________________
+batch_normalization_4 (Batch (None, 1024)              4096      
+_________________________________________________________________
+activation (Activation)      (None, 1024)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 512)               524800    
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 512)               0         
+_________________________________________________________________
+batch_normalization_5 (Batch (None, 512)               2048      
+_________________________________________________________________
+activation_1 (Activation)    (None, 512)               0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 5)                 2565      
 =================================================================
 ```
 
