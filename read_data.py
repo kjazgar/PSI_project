@@ -46,7 +46,7 @@ from PIL import Image
 
 
 ###################################
-def read_data():
+def read_data(show_images=False):
     X = list()
     y = list()
     IMG_SIZE = 128
@@ -98,18 +98,27 @@ def read_data():
 
     X = np.array(X)
 
-    # fig, ax = plt.subplots(5, 2)
-    # fig.set_size_inches(15, 15)
-    # for i in range(5):
-    #     for j in range(2):
-    #         l = rn.randint(0, len(y))
-    #         ax[i, j].imshow(X[l])
-    #         ax[i, j].set_title('Flower: ' + y[l])
-    #
-    # plt.tight_layout()
-    # plt.show()
+    if show_images:
+        fig, ax = plt.subplots(5, 2)
+        fig.set_size_inches(15, 15)
+        for i in range(5):
+            for j in range(2):
+                l = rn.randint(0, len(y))
+                ax[i, j].imshow(X[l])
+                ax[i, j].set_title('Flower: ' + y[l])
+
+        plt.tight_layout()
+        plt.show()
+
+        plt.figure(figsize = (20,20))
+        for i in range(5):
+            img = X[950*i]
+            plt.subplot(1,5,i+1)
+            plt.imshow(img)
+            plt.axis("off")
+            plt.title(y[950*i])
 
     return X, y
 
-read_data()
+# read_data(show_images=True)
 

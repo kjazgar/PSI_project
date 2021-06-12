@@ -1,8 +1,9 @@
 from random import uniform
 
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from reprocess_data import reprocess_data2
 import matplotlib.pyplot as plt
@@ -12,16 +13,17 @@ from sklearn import metrics
 from sklearn.svm import SVC
 
 
-def svm_poly(X_train, X_test, y_train, y_test):
+def knn(X_train, X_test, y_train, y_test):
 
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
-    pipe = Pipeline([('preprocessing', StandardScaler()), ('classifier', SVC(kernel='poly'))])
+    pipe = Pipeline([('preprocessing', StandardScaler()),
+                       ('classifier', KNeighborsClassifier())])
 
     param_grid = {
-        'classifier__C': [0.001],
-        'classifier__gamma': [0.01]
-    }
+        'preprocessing': [MinMaxScaler(), StandardScaler(), None],
+        'classifier__n_neighbors': [1, 2, 3, 5, 10, 100]}
+
 
     grid = GridSearchCV(pipe, param_grid, cv=kfold, error_score='raise')
 
@@ -35,3 +37,9 @@ def svm_poly(X_train, X_test, y_train, y_test):
     print(accuracy)
 
     return grid
+
+
+
+# X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
+# svm_linear(X_train, X_test, X_valid, y_train, y_test, y_valid)
+#0.4560862865947612

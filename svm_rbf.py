@@ -12,11 +12,11 @@ from sklearn import metrics
 from sklearn.svm import SVC
 
 
-def svm_poly(X_train, X_test, y_train, y_test):
+def svm_rbf(X_train, X_test, y_train, y_test):
 
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
-    pipe = Pipeline([('preprocessing', StandardScaler()), ('classifier', SVC(kernel='poly'))])
+    pipe = Pipeline([('preprocessing', StandardScaler()), ('classifier', SVC(kernel='rbf'))])
 
     param_grid = {
         'classifier__C': [0.001],
