@@ -1,4 +1,4 @@
-from reprocess_data import reprocess_data
+from reprocess_data import reprocess_data1
 
 import tensorflow as tf
 from tensorflow import keras
@@ -63,6 +63,6 @@ def model6(X_train, X_test, X_valid, y_train, y_test, y_valid):
     return model
 
 
-X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
+X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()
 model6(X_train, X_test, X_valid, y_train, y_test, y_valid)
 #0.6302003081664098

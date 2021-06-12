@@ -1,6 +1,6 @@
 from keras.layers import MaxPool2D
 
-from reprocess_data import reprocess_data
+from reprocess_data import reprocess_data1
 
 import tensorflow as tf
 from tensorflow import keras
@@ -70,6 +70,8 @@ def model8(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     model.summary()  # print summary my model
 
+    # adam = tf.keras.optimizers.Adam(lr=0.0001)
+
     model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])  # compile model
 
     # model.compile(loss="sparse_categorical_crossentropy",
@@ -91,6 +93,6 @@ def model8(X_train, X_test, X_valid, y_train, y_test, y_valid):
     return model
 
 
-X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
+X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()
 model8(X_train, X_test, X_valid, y_train, y_test, y_valid)
 #0.7226502311248074
