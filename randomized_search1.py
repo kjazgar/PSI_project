@@ -29,12 +29,12 @@ def rnd(X_train, X_test, X_valid, y_train, y_test, y_valid):
     y_valid = np.array(y_valid)
 
 
-    keras.backend.clear_session()
+    tf.keras.backend.clear_session()
     np.random.seed(42)
     tf.random.set_seed(42)
 
     def build_model(n_hidden=1, filters=128, dropout =0.3, learning_rate=3e-3):
-        model = keras.models.Sequential()
+        model = tf.keras.models.Sequential()
         model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
         model.add(BatchNormalization())
         model.add(Dropout(0.2))
@@ -48,7 +48,7 @@ def rnd(X_train, X_test, X_valid, y_train, y_test, y_valid):
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(5, activation="softmax"))
-        optimizer = keras.optimizers.SGD(lr=learning_rate)
+        optimizer = tf.keras.optimizers.SGD(lr=learning_rate)
         model.compile(model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer, metrics=['accuracy']))
         return model
 
@@ -58,7 +58,7 @@ def rnd(X_train, X_test, X_valid, y_train, y_test, y_valid):
     from sklearn.model_selection import RandomizedSearchCV
 
     param_distribs = {
-        "n_hidden": [2, 3, 4],
+        "n_hidden": [3, 4],
         "dropout": [0.2, 0.3, 0.5]
 
     }

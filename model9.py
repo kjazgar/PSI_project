@@ -23,68 +23,67 @@ from tensorflow.keras.layers import Flatten
 
 
 def model9(X_train, X_test, X_valid, y_train, y_test, y_valid):
+    def model9(X_train, X_test, X_valid, y_train, y_test, y_valid):
+        y_train = np.array(y_train)
+        y_test = np.array(y_test)
+        y_valid = np.array(y_valid)
 
-    y_train = np.array(y_train)
-    y_test = np.array(y_test)
-    y_valid = np.array(y_valid)
+        keras.backend.clear_session()
+        np.random.seed(42)
+        tf.random.set_seed(42)
 
+        model = Sequential()
 
-    keras.backend.clear_session()
-    np.random.seed(42)
-    tf.random.set_seed(42)
+        model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.2))
 
-    model = Sequential()
-    # 1st Convolutional Layer
-    model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
+        model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.3))
 
-    model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
+        model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.2))
 
-    model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
+        model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.2))
 
-    model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
+        model.add(Flatten())
+        model.add(Dense(1024))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
+        model.add(Activation("relu"))
 
-    model.add(Flatten())
-    model.add(Dense(1024))
-    model.add(Dropout(0.5))
-    model.add(BatchNormalization())
-    model.add(Activation("relu"))
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
+        model.add(Activation("relu"))
 
-    model.add(Dense(512))
-    model.add(Dropout(0.5))
-    model.add(BatchNormalization())
-    model.add(Activation("relu"))
+        model.add(Dense(5, activation="softmax"))
 
-    model.add(Dense(5, activation="softmax"))
+        model.summary()
 
-    model.summary()  # print summary my model
+        model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])  # compile model
+        history = model.fit(X_train, y_train, epochs=30,
+                            validation_data=(X_valid, y_valid))
 
-    history = model.fit(X_train, y_train, epochs=30,
-                        validation_data=(X_valid, y_valid))
+        pd.DataFrame(history.history).plot(figsize=(8, 5))
+        plt.grid(True)
+        plt.gca().set_ylim(0, 1)
+        plt.show()
 
-    pd.DataFrame(history.history).plot(figsize=(8, 5))
-    plt.grid(True)
-    plt.gca().set_ylim(0, 1)
-    plt.show()
+        y_pred = model.predict_classes(X_test)
+        accuracy = metrics.accuracy_score(y_test, y_pred)
+        print(accuracy)
 
-    y_pred = model.predict_classes(X_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    print(accuracy)
-
-    return model
+        return model, history
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()

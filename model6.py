@@ -21,11 +21,9 @@ from tensorflow.keras.layers import Flatten
 
 
 def model6(X_train, X_test, X_valid, y_train, y_test, y_valid):
-
     y_train = np.array(y_train)
     y_test = np.array(y_test)
     y_valid = np.array(y_valid)
-
 
     keras.backend.clear_session()
     np.random.seed(42)
@@ -60,7 +58,7 @@ def model6(X_train, X_test, X_valid, y_train, y_test, y_valid):
     accuracy = metrics.accuracy_score(y_test, y_pred)
     print(accuracy)
 
-    return model
+    return model, history
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()

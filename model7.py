@@ -22,11 +22,9 @@ from tensorflow.python.keras.layers.convolutional import Conv2D, MaxPooling2D, A
 from tensorflow.keras.layers import Flatten
 
 def model7(X_train, X_test, X_valid, y_train, y_test, y_valid):
-
     y_train = np.array(y_train)
     y_test = np.array(y_test)
     y_valid = np.array(y_valid)
-
 
     keras.backend.clear_session()
     np.random.seed(42)
@@ -50,8 +48,8 @@ def model7(X_train, X_test, X_valid, y_train, y_test, y_valid):
     model.add(Activation('relu'))
     model.add(Dense(5, activation="softmax"))
 
-    model.summary()  # print summary my model
-    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])  # compile model
+    model.summary()
+    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # model.compile(loss="sparse_categorical_crossentropy",
     #               optimizer="Adam",
@@ -69,7 +67,7 @@ def model7(X_train, X_test, X_valid, y_train, y_test, y_valid):
     accuracy = metrics.accuracy_score(y_test, y_pred)
     print(accuracy)
 
-    return model
+    return model, history
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()

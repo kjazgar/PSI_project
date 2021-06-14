@@ -1,4 +1,4 @@
-from reprocess_data import reprocess_data
+from reprocess_data import reprocess_data1
 
 import tensorflow as tf
 from tensorflow import keras
@@ -21,18 +21,16 @@ from tensorflow.keras.layers import Flatten
 
 
 def model4(X_train, X_test, X_valid, y_train, y_test, y_valid):
-
     y_train = np.array(y_train)
     y_test = np.array(y_test)
     y_valid = np.array(y_valid)
-
 
     keras.backend.clear_session()
     np.random.seed(42)
     tf.random.set_seed(42)
 
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), input_shape = (128,128,3), padding="same"))
+    model.add(Conv2D(32, (3, 3), input_shape=(128, 128, 3), padding="same"))
     model.add(BatchNormalization())
     model.add(Activation("relu"))
     model.add(MaxPooling2D((2, 2)))
@@ -45,7 +43,8 @@ def model4(X_train, X_test, X_valid, y_train, y_test, y_valid):
     model.add(Dropout(0.2))
 
     model.add(Flatten())
-    model.add(Dense(5,activation="softmax"))
+    model.add(Dense(5, activation="softmax"))
+
     model.summary()
 
     model.compile(loss="sparse_categorical_crossentropy",
@@ -64,9 +63,9 @@ def model4(X_train, X_test, X_valid, y_train, y_test, y_valid):
     accuracy = metrics.accuracy_score(y_test, y_pred)
     print(accuracy)
 
-    return model
+    return model, history
 
 
-X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
+X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()
 model4(X_train, X_test, X_valid, y_train, y_test, y_valid)
 #0.5408320493066255

@@ -13,7 +13,6 @@ from sklearn.svm import SVC
 
 
 def svm_poly(X_train, X_test, y_train, y_test):
-
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
     pipe = Pipeline([('preprocessing', StandardScaler()), ('classifier', SVC(kernel='poly'))])
@@ -30,8 +29,8 @@ def svm_poly(X_train, X_test, y_train, y_test):
 
     grid.fit(X_train, y_train)
 
-    y_pred = grid.predict(X_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    print(accuracy)
+    #     y_pred = grid.predict(X_test)
+    #     accuracy = metrics.accuracy_score(y_test, y_pred)
+    #     print(accuracy)
 
     return grid

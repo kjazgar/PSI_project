@@ -26,10 +26,9 @@ def random_forest(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
-
     param_grid = {
         'n_estimators': [5, 50, 500],
-        'max_leaf_nodes': [2,16]
+        'max_leaf_nodes': [2, 16]
 
     }
 
@@ -37,15 +36,17 @@ def random_forest(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     rf1.fit(X_train, y_train)
 
-    y_pred = rf1.predict(X_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    print(accuracy)
+
+#     y_pred = rf1.predict(X_test)
+#     accuracy = metrics.accuracy_score(y_test, y_pred)
+#     print(accuracy)
+
 
     return rf1
 
 
 
-# X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data()
-# rf(X_train, X_test, X_valid, y_train, y_test, y_valid)
+# X_train, X_test,  y_train, y_test = reprocess_data2()
+# rf(X_train, X_test,  y_train, y_test)
 #0.4884437596302003
 

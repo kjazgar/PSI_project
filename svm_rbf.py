@@ -13,15 +13,14 @@ from sklearn.svm import SVC
 
 
 def svm_rbf(X_train, X_test, y_train, y_test):
-
     kfold = StratifiedKFold(n_splits=5, shuffle=False)
 
     pipe = Pipeline([('preprocessing', StandardScaler()), ('classifier', SVC(kernel='rbf'))])
 
-    param_grid = {
-        'classifier__C': [0.001],
-        'classifier__gamma': [0.01]
-    }
+    param_grid = {'preprocessing': [MinMaxScaler(), StandardScaler(), None],
+                  'classifier__C': [0.001],
+                  'classifier__gamma': [0.01]
+                  }
 
     grid = GridSearchCV(pipe, param_grid, cv=kfold, error_score='raise')
 
@@ -30,8 +29,8 @@ def svm_rbf(X_train, X_test, y_train, y_test):
 
     grid.fit(X_train, y_train)
 
-    y_pred = grid.predict(X_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    print(accuracy)
+    #     y_pred = grid.predict(X_test)
+    #     accuracy = metrics.accuracy_score(y_test, y_pred)
+    #     print(accuracy)
 
     return grid

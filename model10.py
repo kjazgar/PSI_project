@@ -23,11 +23,9 @@ from tensorflow.keras.layers import Flatten
 
 
 def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
-
     y_train = np.array(y_train)
     y_test = np.array(y_test)
     y_valid = np.array(y_valid)
-
 
     keras.backend.clear_session()
     np.random.seed(42)
@@ -35,37 +33,37 @@ def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     model = Sequential()
     model.add(Conv2D(filters=16, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
 
     model.add(Conv2D(filters=32, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.3))
 
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
 
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.3))
 
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
 
     model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
 
     model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(BatchNormalization())
     model.add(Dropout(0.3))
 
@@ -77,11 +75,11 @@ def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
 
     model.add(Dense(5, activation="softmax"))
 
-    model.summary()  # print summary my model
+    model.summary()
 
     adam = tf.keras.optimizers.Adam(lr=0.01)
 
-    model.compile(loss='sparse_categorical_crossentropy', optimizer=adam, metrics=['accuracy'])  # compile model
+    model.compile(loss='sparse_categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 
     history = model.fit(X_train, y_train, epochs=30,
                         validation_data=(X_valid, y_valid))
@@ -95,7 +93,7 @@ def model10(X_train, X_test, X_valid, y_train, y_test, y_valid):
     accuracy = metrics.accuracy_score(y_test, y_pred)
     print(accuracy)
 
-    return model
+    return model, history
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()

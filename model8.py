@@ -23,74 +23,73 @@ from tensorflow.keras.layers import Flatten
 
 
 def model8(X_train, X_test, X_valid, y_train, y_test, y_valid):
+    def model8(X_train, X_test, X_valid, y_train, y_test, y_valid):
+        y_train = np.array(y_train)
+        y_test = np.array(y_test)
+        y_valid = np.array(y_valid)
 
-    y_train = np.array(y_train)
-    y_test = np.array(y_test)
-    y_valid = np.array(y_valid)
+        keras.backend.clear_session()
+        np.random.seed(42)
+        tf.random.set_seed(42)
 
+        model = Sequential()
 
-    keras.backend.clear_session()
-    np.random.seed(42)
-    tf.random.set_seed(42)
+        model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.2))
 
-    model = Sequential()
-    # 1st Convolutional Layer
-    model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="Same", activation="relu", input_shape=(128, 128, 3)))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
-    # 2nd Convolutional Layer
-    model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
-    # 3rd Convolutional Layer
-    model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
-    # 4th Convolutional Layer
-    model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
-    # 5th Convolutional Layer
-    model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="Same", activation="relu"))
-    model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
+        model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.3))
 
-    model.add(Flatten())
-    # 1st Fully Connected Layer
-    model.add(Dense(1024, activation="relu"))
-    model.add(Dropout(0.5))
-    model.add(BatchNormalization())
-    # Add output layer
-    model.add(Dense(5, activation="softmax"))
+        model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.3))
 
-    model.summary()  # print summary my model
+        model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.2))
 
-    # adam = tf.keras.optimizers.Adam(lr=0.0001)
+        model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="Same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.3))
 
-    model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])  # compile model
+        model.add(Flatten())
 
-    # model.compile(loss="sparse_categorical_crossentropy",
-    #               optimizer="Adam",
-    #               metrics=["accuracy"])
+        model.add(Dense(1024, activation="relu"))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
 
-    history = model.fit(X_train, y_train, epochs=30,
-                        validation_data=(X_valid, y_valid))
+        model.add(Dense(5, activation="softmax"))
 
-    pd.DataFrame(history.history).plot(figsize=(8, 5))
-    plt.grid(True)
-    plt.gca().set_ylim(0, 1)
-    plt.show()
+        model.summary()
 
-    y_pred = model.predict_classes(X_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
-    print(accuracy)
+        # adam = tf.keras.optimizers.Adam(lr=0.0001)
 
-    return model
+        model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+        # model.compile(loss="sparse_categorical_crossentropy",
+        #               optimizer="Adam",
+        #               metrics=["accuracy"])
+
+        history = model.fit(X_train, y_train, epochs=30,
+                            validation_data=(X_valid, y_valid))
+
+        pd.DataFrame(history.history).plot(figsize=(8, 5))
+        plt.grid(True)
+        plt.gca().set_ylim(0, 1)
+        plt.show()
+
+        y_pred = model.predict_classes(X_test)
+        accuracy = metrics.accuracy_score(y_test, y_pred)
+        print(accuracy)
+
+        return model, history
 
 
 X_train, X_test, X_valid, y_train, y_test, y_valid = reprocess_data1()
