@@ -405,5 +405,8 @@ dense_1 (Dense)              (None, 5)                 5125
 ├── svm_linear.py
 ├── svm_poly.py
 ├── svm_rbf.py
+├── dec_tree.py
+├── extra_tree.py
+├── ada_boost.py
 └── metrics.py
 ```
