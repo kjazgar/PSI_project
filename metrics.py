@@ -2,16 +2,16 @@ from sklearn import metrics
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 import pandas as pd
 
-from ada_boost import ada
-from dec_tree import dec_tree
-from extra_tree import extra_tree
+from simple_models.ada_boost import ada
+from simple_models.dec_tree import dec_tree
+from simple_models.extra_tree import extra_tree
 from reprocess_data import reprocess_data2
-from logistic import logistic
-from svm_linear import svm_linear
-from svm_poly import svm_poly
-from svm_rbf import svm_rbf
-from random_forest import random_forest
-from knn import knn
+from simple_models.logistic import logistic
+from simple_models.svm_linear import svm_linear
+from simple_models.svm_poly import svm_poly
+from simple_models.svm_rbf import svm_rbf
+from simple_models.random_forest import random_forest
+from simple_models.knn import knn
 import matplotlib.pyplot as plt
 
 X_train, X_test, y_train, y_test = reprocess_data2()
