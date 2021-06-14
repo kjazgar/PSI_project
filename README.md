@@ -386,7 +386,24 @@ dense_1 (Dense)              (None, 5)                 5125
 ```
 .
 ├── README.md
-├── model1.py
 ├── read_data.py
-└── reprocess_data.py
+├── reprocess_data.py
+├── show_data.py
+├── model1.py
+├── model2.py
+├── model3.py
+├── model4.py
+├── model5.py
+├── model6.py
+├── model7.py
+├── model8.py
+├── model9.py
+├── model10.py
+├── knn.py
+├── logistic.py
+├── random_forest.py
+├── svm_linear.py
+├── svm_poly.py
+├── svm_rbf.py
+└── metrics.py
 ```
